@@ -30,6 +30,7 @@ if(isset($_POST['add category'])){
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,9 +42,9 @@ if(isset($_POST['add category'])){
     <title>Document</title>
 </head>
 <body>
-    
-<div class="container">
-<h1><u> Add Product </u></h1>
+
+        <div class="container">
+<h1><u> Add Category </u></h1>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" class="form-group">
 
 <label for="catid"> Id </label>
@@ -74,8 +75,12 @@ if(isset($_POST['add category'])){
 </form>
 </div>
 
+
+
 <?php
 include('admin/includes/footer.php');
 ?>
-</body>
+
+</Body>
+
 </html>
