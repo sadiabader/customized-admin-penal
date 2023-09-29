@@ -1,102 +1,178 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include('admin/includes/header.php');
+include('admin/includes/topbar.php');
+include('admin/includes/sidebar.php');
+include('config.php');
+  
+$limit = 2;
+if(isset($_GET['page'])){
+  
+  $getpgno = $_GET['page'];
+}else{
+  $getpgno = 1;
+}
+$offset = ($getpgno - 1) * $limit;
 
-<head>
+$fetch = "SELECT * FROM `user-admin` where status = '1' limit {$offset}, {$limit}";
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+$data = mysqli_query($conn, $fetch);
 
-    <title>SB Admin 2 - Register</title>
+?>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Modal -->
+  <div class="modal fade" id="AddUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">User Registration Form</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="adduser.php" method="post" class="form-group">
+            <div>
+              <label for="name"> Name </label>
+              <input type="text" name="name" class="form-control">
+            </div>
 
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+            <div>
+              <label for="email"> Email </label>
+              <input type="email" name="email" class="form-control">
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="pass"> Password </label>
+                <input type="password" name="pass" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label for="cpass"> Confirm Password </label>
+                <input type="password" name="cpass" class="form-control">
+              </div>
+            </div>
 
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
-
-<body class="bg-gradient-primary">
-
-    <div class="container">
-
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block"></div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                            </div>
-                            <form class="user">
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Last Name">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
-                                    </div>
-                                </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                                    Register Account
-                                </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div>
+              <label for="phone"> Phone </label>
+              <input type="number" name="phone" class="form-control">
             </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" name="adduser" class="btn btn-primary">Add User</button>
+        </div>
+        </form>
 
+
+
+      </div>
+    </div>
+  </div>
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Registered Users</h1>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+            <li class="breadcrumb-item active">Registered users</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title" style="
+    color: black;
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    font-weight: bold;">Registered Users Table</h3>
+      <a href="" class="btn btn-primary float-right btn-sm" data-bs-toggle="modal" data-bs-target="#AddUserModal"> Add
+        User</a>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-primary table-bordered  text-center table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          while ($row = mysqli_fetch_assoc($data)) {
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+            ?>
+            <tr>
+              <td>
+                <?php echo $row['id'] ?>
+              </td>
+              <td>
+                <?php echo $row['name'] ?>
+              </td>
+              <td>
+                <?php echo $row['email'] ?>
+              </td>
+              <td>
+                <?php echo $row['phone'] ?>
+              </td>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+              <td>
 
-</body>
+                <a href="Updateuser.php?id=<?php echo $row['id']; ?>" class="btn btn-warning"><?php echo 'Update' ?></a>
+                <a href="Trash.php?id=<?php echo $row['id']; ?>" class="btn btn-danger"><?php echo 'Trash' ?></a>
+              </td>
+            </tr>
+            <?php
+          }
+          ?>
+        </tbody>
+      </table>
+      <div class="container mt-4">
+        
 
-</html>
+      <?php
+        $fetchpage = "SELECT * from  `user-admin`";
+        $query = mysqli_query($conn, $fetchpage);
+        
+          if(mysqli_num_rows($query) > 0){
+            $totalRecords = mysqli_num_rows($query);
+            $totalpages = ceil($totalRecords / $limit);
+            echo '<ul class="pagination">';
+            if($getpgno > 1){
+              echo '<li class="page-item"><a class="page-link" href="registeredusers.php?page='.($getpgno - 1).'">prev</a></li>';
+
+            }
+            for($i = 1; $i <= $totalpages; $i++){
+              $active = $i == $getpgno? "active" : "";
+              echo '<li class="'.$active.' page-item"><a class="page-link" href="registeredusers.php?page='.$i.'">'.$i.'</a></li>';
+            }
+            if($getpgno < $totalpages){
+              echo '<li class="page-item"><a class="page-link" href="registeredusers.php?page='.($getpgno + 1).'">next</a></li>';
+
+            }
+
+          }
+      ?>
+  </div>
+
+    </div>
+  </div>
+  
+</div>
+
+<?php
+include('admin/includes/footer.php');
+?>

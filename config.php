@@ -1,6 +1,6 @@
 <?php
 
-$connection = mysqli_connect("localhost","root","","admin-penal");
+$conn = mysqli_connect("localhost","root","","admin_penal");
 
 
 ?>

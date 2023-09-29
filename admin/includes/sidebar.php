@@ -72,11 +72,11 @@
     </a>
     <div id="collapsePro" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="login.php">Add Category</a>
-            <a class="collapse-item" href="register.php">View Category</a>
+            <a class="collapse-item" href="addcategory.php">Add Category</a>
+            <a class="collapse-item" href="viewcategory.php">View Category</a>
             <div class="collapse-divider"></div>
-            <a class="collapse-item" href="404.php">Add Product</a>
-            <a class="collapse-item" href="blank.php">view Product</a>
+            <a class="collapse-item" href="addproduct.php">Add Product</a>
+            <a class="collapse-item" href="viewproduct.php">view Product</a>
         </div>
     </div>
 </li>
