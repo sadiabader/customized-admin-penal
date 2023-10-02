@@ -64,7 +64,7 @@ if(isset($_POST['addproduct'])){
                   <br>
                 <?php
                 $products = "SELECT * from category";
-                $result1 = mysqli_query($connection, $products);
+                $result1 = mysqli_query($conn, $products);
                 if(mysqli_num_rows($result1) > 0) {
         ?>
                 <select class="form-select col-md-12" name="pcategory" aria-label="Default select example">
@@ -88,7 +88,7 @@ if(isset($_POST['addproduct'])){
                 <label for="image"> Image </label>
                 <input type="file" name="pimage" class="form-control">
                 
-                <input type="submit" style="margin-top: 20px;" class="btn btn-primary btn-user btn-block" name="addproducts">
+                <input type="submit" style="margin-top: 20px;" class="btn btn-primary btn-user btn-block" name="addproduct">
             
 </form>
         </div>

@@ -16,13 +16,13 @@ if(isset($_POST['register'])){
     if($Password == $RPassword){
     $hashPass = password_hash($Password, PASSWORD_BCRYPT);
 
-        $check_email = "SELECT * from register where email = '$email' ";
-        $run_email = mysqli_query($conn, $check_email);
+        $check_email = "SELECT * from register-user where email = '$email' ";
+        $run_email = mysqli_query($connection, $check_email);
         if(mysqli_num_rows($run_email) > 0){
             echo "Email already exist";
         }else{
-            $insert = "INSERT INTO `register` (`fname`, `lname`, `email`, `password`) VALUES ('$fname', '$lname', '$email','$hashPass')";
-        $connect_insert = mysqli_query($conn, $insert);
+            $insert = "INSERT INTO `register` (`fname`, `lname`, `email`, `pass`) VALUES ('$fname', '$lname', '$email','$hashPass')";
+        $connect_insert = mysqli_query($connection, $insert);
         if($connect_insert){
             echo "registration successful";
         }else{

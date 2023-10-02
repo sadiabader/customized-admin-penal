@@ -2,9 +2,8 @@
 include('admin/includes/header.php');
 include('admin/includes/sidebar.php');
 include('admin/includes/topbar.php');
-
 include('config.php');
-$fetch = "SELECT * FROM `register` where status = '0'";
+$fetch = "SELECT * FROM `register=user` where status = '0'";
 
 $data = mysqli_query($conn, $fetch);
 
